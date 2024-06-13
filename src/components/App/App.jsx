@@ -1,11 +1,10 @@
-import { useState } from 'react';
-
+import { useStorage } from '@/hooks';
 import { Button } from '@/components/Button';
 
 import css from './App.module.css';
 
 export const App = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useStorage({ key: 'data', initialValue: [] });
 
   const handleChange = e => {
     const fileReader = new FileReader();
