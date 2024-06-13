@@ -5,6 +5,9 @@ import { viteSingleFile } from 'vite-plugin-singlefile';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), viteSingleFile()],
+  resolve: {
+    alias: [{ find: '@', replacement: '/src' }],
+  },
   server: {
     host: 'localhost',
     port: 3000,
