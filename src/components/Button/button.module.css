@@ -1,0 +1,8 @@
+.root {
+  text-align: center;
+  cursor: pointer;
+  background-color: lightgray;
+  border: none;
+  padding: 4px 16px;
+  border-radius: 4px;
+}
