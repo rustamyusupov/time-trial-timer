@@ -1,8 +1,11 @@
 import { useState } from 'react';
+
+import { Button } from '@/components/Button';
+
 import css from './App.module.css';
 
 export const App = () => {
-  const [data, setData] = useState('');
+  const [data, setData] = useState([]);
 
   const handleChange = e => {
     const fileReader = new FileReader();
@@ -13,7 +16,21 @@ export const App = () => {
 
   return (
     <main className={css.root}>
-      <input type="file" onChange={handleChange} />
+      <input className={css.input} type="file" onChange={handleChange} />
+      <table className={css.table}>
+        {data?.map(({ number, name }) => (
+          <tr key={number} className={css.row}>
+            <td className={css.cell}>{number}</td>
+            <td className={css.cell}>{name}</td>
+            <td className={css.cell}>
+              <Button>Start</Button>
+            </td>
+            <td className={css.cell}>
+              <Button>Reset</Button>
+            </td>
+          </tr>
+        ))}
+      </table>
     </main>
   );
 };
