@@ -15,9 +15,10 @@ export const App = () => {
 
   return (
     <main className={css.root}>
+      <h1 className={css.title}>{data?.title}</h1>
       <input className={css.input} type="file" onChange={handleChange} />
       <table className={css.table}>
-        {data?.map(({ number, name }) => (
+        {data?.participants?.map(({ number, name }) => (
           <tr key={number} className={css.row}>
             <td className={css.cell}>{number}</td>
             <td className={css.cell}>{name}</td>
