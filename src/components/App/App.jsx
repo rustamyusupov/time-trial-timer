@@ -1,5 +1,5 @@
 import { useStorage } from '@/hooks';
-import { Button } from '@/components/Button';
+import { Row } from '@/components/Row';
 
 import css from './App.module.css';
 
@@ -13,23 +13,31 @@ export const App = () => {
     fileReader.onload = e => setData(JSON.parse(e.target.result));
   };
 
+  const handleClick = ({ id, active, start, stop }) => {
+    setData({
+      ...data,
+      participants: {
+        ...data.participants,
+        [id]: {
+          ...data.participants[id],
+          active,
+          start,
+          stop,
+        },
+      },
+    });
+  };
+
   return (
     <main className={css.root}>
       <h1 className={css.title}>{data?.title}</h1>
       <input className={css.input} type="file" onChange={handleChange} />
-      <table className={css.table}>
-        {data?.participants?.map(({ number, name }) => (
-          <tr key={number} className={css.row}>
-            <td className={css.cell}>{number}</td>
-            <td className={css.cell}>{name}</td>
-            <td className={css.cell}>
-              <Button>Start</Button>
-            </td>
-            <td className={css.cell}>
-              <Button>Reset</Button>
-            </td>
-          </tr>
-        ))}
+      <table>
+        <tbody>
+          {Object.entries(data?.participants ?? {})?.map(([key, item]) => (
+            <Row key={key} id={key} {...item} onClick={handleClick} />
+          ))}
+        </tbody>
       </table>
     </main>
   );
