@@ -35,10 +35,14 @@ export const Row = ({ active = false, id, name, number, start = 0, stop = 0, onC
       <td className={css.cell}>{name}</td>
       <td className={css.cell}>{formatTime(time)}</td>
       <td className={css.cell}>
-        <Button onClick={handleStart(id)}>{active ? 'Stop' : 'Start'}</Button>
+        <Button className={css.button} onClick={handleStart(id)}>
+          {active ? 'Стоп' : 'Старт'}
+        </Button>
       </td>
       <td className={css.cell}>
-        <Button onClick={handleReset(id)}>Reset</Button>
+        <Button className={css.button} onClick={handleReset(id)}>
+          Сброс
+        </Button>
       </td>
     </tr>
   );
