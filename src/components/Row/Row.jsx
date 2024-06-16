@@ -10,25 +10,16 @@ import { formatTime } from './helpers';
 export const Row = ({ active = false, id, name, number, start = 0, stop = 0, onClick }) => {
   const [time, setTime] = useState(0);
 
-  useEffect(() => {
-    setTime(stop > 0 ? stop - start : 0);
-  }, [stop, start]);
+  useEffect(() => setTime(stop > 0 ? stop - start : 0), [stop, start]);
+  useInterval(() => setTime(time + 10), active ? 10 : null);
 
-  useInterval(
-    () => {
-      setTime(time + 100);
-    },
-    active ? 100 : null
-  );
-
-  const handleStart = id => () => {
+  const handleStart = id => () =>
     onClick({
       id,
       active: !active,
       start: active || start !== 0 ? start : 0,
       stop: active ? time : stop,
     });
-  };
 
   const handleReset = id => () =>
     onClick({
