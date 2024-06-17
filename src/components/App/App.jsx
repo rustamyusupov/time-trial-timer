@@ -6,6 +6,11 @@ import css from './App.module.css';
 export const App = () => {
   const [data, setData] = useStorage({ key: 'data', initialValue: [] });
 
+  const participants = Object.entries(data?.participants ?? {});
+  const results = Object.entries(data?.participants ?? {})
+    ?.filter(([, item]) => !item.active && item.stop > 0)
+    .sort(([, a], [, b]) => a.stop - b.stop);
+
   const handleChange = e => {
     const fileReader = new FileReader();
 
@@ -35,19 +40,16 @@ export const App = () => {
       <div className={css.tables}>
         <table>
           <tbody>
-            {Object.entries(data?.participants ?? {})?.map(([key, item]) => (
+            {participants?.map(([key, item]) => (
               <Row key={key} id={key} {...item} onClick={handleClick} />
             ))}
           </tbody>
         </table>
         <table>
           <tbody>
-            {Object.entries(data?.participants ?? {})
-              ?.filter(([, item]) => !item.active && item.stop > 0)
-              .sort(([, a], [, b]) => a.stop - b.stop)
-              .map(([key, item]) => (
-                <Row key={key} className={css.resultRow} id={key} {...item} />
-              ))}
+            {results.map(([key, item]) => (
+              <Row key={key} className={css.resultRow} id={key} {...item} />
+            ))}
           </tbody>
         </table>
       </div>
