@@ -35,24 +35,29 @@ export const App = () => {
 
   return (
     <main className={css.root}>
-      <h1 className={css.title}>{data?.title}</h1>
-      <input className={css.input} type="file" onChange={handleChange} />
-      <div className={css.tables}>
-        <table>
-          <tbody>
-            {participants?.map(([key, item]) => (
-              <Row key={key} id={key} {...item} onClick={handleClick} />
-            ))}
-          </tbody>
-        </table>
-        <table>
-          <tbody>
-            {results.map(([key, item]) => (
-              <Row key={key} className={css.resultRow} id={key} {...item} />
-            ))}
-          </tbody>
-        </table>
-      </div>
+      {data?.title ? <h1 className={css.title}>{data?.title}</h1> : null}
+      {participants.length > 0 ? (
+        <div className={css.tables}>
+          <table>
+            <tbody>
+              {participants?.map(([key, item]) => (
+                <Row key={key} id={key} {...item} onClick={handleClick} />
+              ))}
+            </tbody>
+          </table>
+
+          {results.length > 0 ? (
+            <table>
+              <tbody>
+                {results.map(([key, item]) => (
+                  <Row key={key} className={css.resultRow} id={key} {...item} />
+                ))}
+              </tbody>
+            </table>
+          ) : null}
+        </div>
+      ) : null}
+      <input type="file" onChange={handleChange} />
     </main>
   );
 };
