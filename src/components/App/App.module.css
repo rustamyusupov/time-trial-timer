@@ -6,3 +6,15 @@
 .input {
   margin-bottom: 10px;
 }
+
+.tables {
+  display: flex;
+
+  table:not(:last-child) {
+    margin-right: 50px;
+  }
+}
+
+.resultRow {
+  height: 16px;
+}
