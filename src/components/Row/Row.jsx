@@ -6,11 +6,13 @@ import { Button } from '@/components/Button';
 import css from './row.module.css';
 import { useInterval } from '../../hooks';
 import { useEffect, useState } from 'react';
-import { formatTime } from './helpers';
+import { formatTime, getSpeed } from './helpers';
+import { hundredthOfMilliseconds } from './constants';
 
 export const Row = ({
   active = false,
   className,
+  distance,
   id,
   name,
   number,
@@ -20,8 +22,14 @@ export const Row = ({
 }) => {
   const [time, setTime] = useState(0);
 
+  const formattedTime = formatTime(time);
+  const speed = getSpeed(distance, time);
+
   useEffect(() => setTime(stop > 0 ? stop - start : 0), [stop, start]);
-  useInterval(() => setTime(time + 10), active ? 10 : null);
+  useInterval(
+    () => setTime(time + hundredthOfMilliseconds),
+    active ? hundredthOfMilliseconds : null
+  );
 
   const handleStart = id => () =>
     onClick({
@@ -43,7 +51,8 @@ export const Row = ({
     <tr className={cn(css.root, className)}>
       <td className={css.cell}>{number}</td>
       <td className={css.cell}>{name}</td>
-      <td className={css.cell}>{formatTime(time)}</td>
+      <td className={css.cell}>{formattedTime}</td>
+      {speed ? <td className={css.cell}>{`${speed} км/ч`}</td> : null}
       {onClick ? (
         <>
           <td className={css.cell}>
@@ -65,6 +74,7 @@ export const Row = ({
 Row.propTypes = {
   active: PropTypes.bool,
   className: PropTypes.string,
+  distance: PropTypes.number,
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   number: PropTypes.number.isRequired,
