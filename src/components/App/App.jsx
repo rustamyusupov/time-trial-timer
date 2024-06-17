@@ -51,7 +51,13 @@ export const App = () => {
                 <table>
                   <tbody>
                     {results.map(([key, item]) => (
-                      <Row key={key} className={css.resultRow} id={key} {...item} />
+                      <Row
+                        key={key}
+                        className={css.resultRow}
+                        distance={data?.distance}
+                        id={key}
+                        {...item}
+                      />
                     ))}
                   </tbody>
                 </table>
@@ -61,7 +67,13 @@ export const App = () => {
                   <caption>Раздельщики</caption>
                   <tbody>
                     {ttResults.map(([key, item]) => (
-                      <Row key={key} className={css.resultRow} id={key} {...item} />
+                      <Row
+                        key={key}
+                        className={css.resultRow}
+                        distance={data?.distance}
+                        id={key}
+                        {...item}
+                      />
                     ))}
                   </tbody>
                 </table>
