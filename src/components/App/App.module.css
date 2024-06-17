@@ -12,6 +12,10 @@
   }
 }
 
+.results > table:not(:last-child) {
+  margin-bottom: 20px;
+}
+
 .resultRow {
   height: 16px;
 }

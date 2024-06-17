@@ -2,14 +2,14 @@ import { useStorage } from '@/hooks';
 import { Row } from '@/components/Row';
 
 import css from './App.module.css';
+import { getParticipants, getResults, getTtResults } from './helpers';
 
 export const App = () => {
   const [data, setData] = useStorage({ key: 'data', initialValue: [] });
 
-  const participants = Object.entries(data?.participants ?? {});
-  const results = Object.entries(data?.participants ?? {})
-    ?.filter(([, item]) => !item.active && item.stop > 0)
-    .sort(([, a], [, b]) => a.stop - b.stop);
+  const participants = getParticipants(data);
+  const results = getResults(data);
+  const ttResults = getTtResults(data);
 
   const handleChange = e => {
     const fileReader = new FileReader();
@@ -45,15 +45,28 @@ export const App = () => {
               ))}
             </tbody>
           </table>
-
-          {results.length > 0 ? (
-            <table>
-              <tbody>
-                {results.map(([key, item]) => (
-                  <Row key={key} className={css.resultRow} id={key} {...item} />
-                ))}
-              </tbody>
-            </table>
+          {results.length > 0 || ttResults.length > 0 ? (
+            <div className={css.results}>
+              {results.length > 0 ? (
+                <table>
+                  <tbody>
+                    {results.map(([key, item]) => (
+                      <Row key={key} className={css.resultRow} id={key} {...item} />
+                    ))}
+                  </tbody>
+                </table>
+              ) : null}
+              {ttResults.length > 0 ? (
+                <table>
+                  <caption>Раздельщики</caption>
+                  <tbody>
+                    {ttResults.map(([key, item]) => (
+                      <Row key={key} className={css.resultRow} id={key} {...item} />
+                    ))}
+                  </tbody>
+                </table>
+              ) : null}
+            </div>
           ) : null}
         </div>
       ) : null}
