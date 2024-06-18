@@ -3,7 +3,7 @@ import {
   millisecondsInMinute,
   millisecondsInSecond,
   tenthOfMilliseconds,
-} from './constants';
+} from '@/constants';
 
 export const formatTime = ms => {
   const hours = Math.floor(ms / millisecondsInHour);

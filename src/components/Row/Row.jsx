@@ -7,7 +7,7 @@ import css from './row.module.css';
 import { useInterval } from '../../hooks';
 import { useEffect, useState } from 'react';
 import { formatTime, getSpeed } from './helpers';
-import { hundredthOfMilliseconds } from './constants';
+import { hundredthOfMilliseconds } from '../../constants';
 
 export const Row = ({
   active = false,
