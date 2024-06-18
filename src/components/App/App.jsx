@@ -2,11 +2,12 @@ import { useStorage } from '@/hooks';
 import { Row } from '@/components/Row';
 
 import css from './App.module.css';
-import { getParticipants, getResults, getTtResults } from './helpers';
+import { getDistance, getParticipants, getResults, getTtResults } from './helpers';
 
 export const App = () => {
   const [data, setData] = useStorage({ key: 'data', initialValue: [] });
 
+  const distance = getDistance(data);
   const participants = getParticipants(data);
   const results = getResults(data);
   const ttResults = getTtResults(data);
@@ -33,9 +34,16 @@ export const App = () => {
     });
   };
 
+  // TODO: separate table component
+
   return (
     <main className={css.root}>
-      {data?.title ? <h1 className={css.title}>{data?.title}</h1> : null}
+      {data?.title ? (
+        <div className={css.header}>
+          <h1>{data?.title}</h1>
+          {distance ? <p>&nbsp;&nbsp;–&nbsp;&nbsp;{distance} км</p> : null}
+        </div>
+      ) : null}
       {participants.length > 0 ? (
         <div className={css.tables}>
           <table>

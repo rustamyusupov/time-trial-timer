@@ -3,6 +3,11 @@
   flex-direction: column;
 }
 
+.header {
+  display: flex;
+  align-items: center;
+}
+
 .tables {
   display: flex;
   margin-bottom: 20px;
