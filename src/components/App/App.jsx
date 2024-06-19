@@ -90,7 +90,7 @@ export const App = () => {
           ) : null}
         </div>
       ) : null}
-      <input type="file" onChange={handleChange} />
+      <input tabIndex={-1} type="file" onChange={handleChange} />
     </main>
   );
 };

@@ -56,12 +56,12 @@ export const Row = ({
       {onClick ? (
         <>
           <td className={css.cell}>
-            <Button className={css.button} onClick={handleStart(id)}>
+            <Button className={css.button} tabIndex={id + 1} onClick={handleStart(id)}>
               {active ? 'Стоп' : 'Старт'}
             </Button>
           </td>
           <td className={css.cell}>
-            <Button className={css.button} onClick={handleReset(id)}>
+            <Button className={css.button} tabIndex={-1} onClick={handleReset(id)}>
               Сброс
             </Button>
           </td>
