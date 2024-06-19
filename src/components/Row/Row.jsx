@@ -39,13 +39,15 @@ export const Row = ({
       stop: active ? time : stop,
     });
 
-  const handleReset = id => () =>
+  const handleReset = id => () => {
+    setTime(0);
     onClick({
       id,
       active: false,
       start: 0,
       stop: 0,
     });
+  };
 
   return (
     <tr className={cn(css.root, className)}>
