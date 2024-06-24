@@ -13,7 +13,6 @@ export const Row = ({
   active = false,
   className,
   distance,
-  id,
   name,
   number,
   start = 0,
@@ -31,18 +30,18 @@ export const Row = ({
     active ? hundredthOfMilliseconds : null
   );
 
-  const handleStart = id => () =>
+  const handleStart = () =>
     onClick({
-      id,
+      number,
       active: !active,
       start: active || start !== 0 ? start : 0,
       stop: active ? time : stop,
     });
 
-  const handleReset = id => () => {
+  const handleReset = () => {
     setTime(0);
     onClick({
-      id,
+      number,
       active: false,
       start: 0,
       stop: 0,
@@ -61,14 +60,14 @@ export const Row = ({
             <Button
               className={css.button}
               disabled={Boolean(stop)}
-              tabIndex={`${id + 1}`}
-              onClick={handleStart(id)}
+              tabIndex={`${number + 1}`}
+              onClick={handleStart}
             >
               {active ? 'Стоп' : 'Старт'}
             </Button>
           </td>
           <td className={css.cell}>
-            <Button className={css.button} tabIndex="-1" onClick={handleReset(id)}>
+            <Button className={css.button} tabIndex="-1" onClick={handleReset}>
               Сброс
             </Button>
           </td>
@@ -82,7 +81,6 @@ Row.propTypes = {
   active: PropTypes.bool,
   className: PropTypes.string,
   distance: PropTypes.number,
-  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   number: PropTypes.number.isRequired,
   start: PropTypes.number,
